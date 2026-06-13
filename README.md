@@ -26,7 +26,8 @@
 │   ├── 02_EDA_BD.ipynb
 │   └── 03_Modeling_BD.ipynb
 ├── images/                # 시각화 그래프 이미지 저장
-└── README.md ```
+└── README.md
+```
 
 # 📅 프로젝트 기간 & 참여 인원
 진행 기간: 2026년 5월
