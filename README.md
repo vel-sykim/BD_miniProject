@@ -32,17 +32,17 @@
 └── README.md
 
 
-## 📅 프로젝트 기간 & 참여 인원
-* **진행 기간:** 2026년 [5월] 
-* **참여 인원:** 개인 프로젝트
+📅 프로젝트 기간 & 참여 인원
+진행 기간: 2026년 5월
 
----
+참여 인원: 개인 프로젝트
 
-## 🛠️ 사용 기술 및 개발 환경 (Tech Stack)
-* **Language:** Python 3.14+
-* **Data Engineering & EDA:** Pandas, NumPy, Requests, JSON, Matplotlib, Seaborn
-* **Machine Learning:** Scikit-learn (LinearRegression, Ridge, Lasso, StandardScaler)
+🛠️ 사용 기술 및 개발 환경 (Tech Stack)
+Language: Python 3.14+
 
+Data Engineering & EDA: Pandas, NumPy, Requests, JSON, Matplotlib, Seaborn
+
+Machine Learning: Scikit-learn (LinearRegression, Ridge, Lasso, StandardScaler, XGBRegressor)
 ---
 
 ## 1. 📌 프로젝트 기획안 & 제안서
