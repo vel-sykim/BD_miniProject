@@ -21,6 +21,7 @@
 
 ## 🌳 프로젝트 구조 시각화
 
+
 ```text
 ├── data/                  # 원천 데이터 및 전처리 데이터
 ├── notebooks/             # jupyter notebook 파일들
@@ -28,7 +29,7 @@
 │   ├── 02_EDA_BD.ipynb
 │   └── 03_Modeling_BD.ipynb
 ├── images/                # 시각화 그래프 이미지 저장
-└── README.md'''
+└── README.md
 
 
 ## 📅 프로젝트 기간 & 참여 인원
