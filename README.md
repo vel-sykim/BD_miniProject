@@ -26,15 +26,14 @@
 │   ├── 02_EDA_BD.ipynb
 │   └── 03_Modeling_BD.ipynb
 ├── images/                # 시각화 그래프 이미지 저장
-└── README.md
-```
+└── README.md ```
 
-📅 프로젝트 기간 & 참여 인원
+# 📅 프로젝트 기간 & 참여 인원
 진행 기간: 2026년 5월
 
 참여 인원: 개인 프로젝트
 
-🛠️ 사용 기술 및 개발 환경 (Tech Stack)
+# 🛠️ 사용 기술 및 개발 환경 (Tech Stack)
 Language: Python 3.14+
 
 Data Engineering & EDA: Pandas, NumPy, Requests, JSON, Matplotlib, Seaborn
