@@ -9,19 +9,13 @@
 > 💡 각 아이콘 또는 링크를 클릭하면 해당 문서(노션/구글 드라이브 등)로 바로 이동합니다.
 
 | 분류 | 산출물 목록 | 바로가기 링크 |
-| :---: | :--- | :--- |
-| **기획 및 제안** | 📑 프로젝트 기획서 & 제안서 | [👉 기획서/제안서 보기]
-(https://app.notion.com/p/AI-34d1043acf1280938479e01a40e712cf?source=copy_link) 
-(https://app.notion.com/p/35b1043acf12801d9fe2f434b4c2ea19?source=copy_link)
-|
-| **Eda** | 🧼 데이터 전처리 보고서 (Preprocessing) | [👉 전처리보고서 보기]
-(https://app.notion.com/p/3651043acf12801db329e69770dcb091?source=copy_link) |
-| **데이터 명세서** | 🗂️ 데이터 명세서 (Data Schema) | [👉 데이터명세서 보기]
-https://app.notion.com/p/35c1043acf1280f9ab6fcfa6cf096538?source=copy_link) |
-| **탐색적 분석** | 📊 탐색적 데이터 분석 보고서 (EDA) | [👉 EDA보고서 보기]
-(https://app.notion.com/p/EDA_BD-3591043acf1280e28dd1cffdc03389ce?source=copy_link) |
-| **ppt** | 🖨️ 프로젝트 최종 발표 PPT (PDF) | [👉 발표 PPT 보기]
-(https://drive.google.com/file/d/1fJCJ__jedu41jm7nGg6LAQrErPXZKxGg/view?usp=drive_link) |
+| :--- | :--- | :--- |
+| **기획 및 제안** | 📑 프로젝트 기획서 & 제안서 | [👉 기획서 1](https://app.notion.com/p/AI-34d1043acf1280938479e01a40e712cf?source=copy_link) /
+[👉 제안서 2](https://app.notion.com/p/35b1043acf12801d9fe2f434b4c2ea19?source=copy_link) |
+| **EDA** | 🧼 데이터 전처리 보고서 | [👉 전처리보고서 보기](https://app.notion.com/p/3651043acf12801db329e69770dcb091?source=copy_link) |
+| **데이터 명세서** | 🗂️ 데이터 명세서 (Data Schema) | [👉 데이터명세서 보기](https://app.notion.com/p/35c1043acf1280f9ab6fcfa6cf096538?source=copy_link) |
+| **탐색적 분석** | 📊 탐색적 데이터 분석 보고서 (EDA) | [👉 EDA보고서 보기](https://app.notion.com/p/EDA_BD-3591043acf1280e28dd1cffdc03389ce?source=copy_link) |
+| **PPT** | 🖨️ 프로젝트 최종 발표 PPT (PDF) | [👉 발표 PPT 보기](https://drive.google.com/file/d/1fJCJ__jedu41jm7nGg6LAQrErPXZKxGg/view?usp=drive_link) |
 
 ---
 ## 프로젝트 구조 시각화
