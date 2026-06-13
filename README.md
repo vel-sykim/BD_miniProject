@@ -22,7 +22,7 @@
 ## 🌳 프로젝트 구조 시각화
 
 
-```text
+text
 ├── data/                  # 원천 데이터 및 전처리 데이터
 ├── notebooks/             # jupyter notebook 파일들
 │   ├── 01_Data_preprocessing_BD.ipynb
