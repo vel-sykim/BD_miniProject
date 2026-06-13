@@ -106,266 +106,20 @@ def preprocess_location(location_df):
     loc.loc[loc['혈액원명'] == '대한적십자사', '기관구분'] = '중앙기관'
     return loc
 
-
-# Merge
-모델링 전 int화,이상치,결측치 처리 후 pivot table화 하여 테이블을 merge 통합 하였습니다
-
-# =========================
-# 전처리 파일 불러오기
-# =========================
-
-file_map = {
-    'month': 'month2.csv',
-    'year': 'year2.csv',
-    'age': 'age2.csv',
-    'job': 'job2.csv',
-    'region': 'region2.csv',
-    'stock': 'stock2.csv'
-}
-
-data = {}
-
-path = './전처리2/'
-
-for key, filename in file_map.items():
-
-    df = pd.read_csv(
-        os.path.join(path, filename)
-    )
-
-    # 컬럼 공백 제거
-    df.columns = df.columns.str.strip()
-
-    data[key] = df
-
-    print(f"✅ {filename} 로드 완료")
-
-
-# 개별 변수 사용
-month = data['month']
-year = data['year']
-age = data['age']
-job = data['job']
-region = data['region']
-stock = data['stock']
-
-
-# =========================
-# 컬럼명 통일
-# =========================
-
-month.rename(columns={
-    '연도': '년도'
-}, inplace=True)
-
-age.rename(columns={
-    '기준연도': '년도'
-}, inplace=True)
-
-job.rename(columns={
-    '기준연도': '년도'
-}, inplace=True)
-
-region.rename(columns={
-    '기준연도': '년도'
-}, inplace=True)
-
-
-# =========================
-# 데이터 타입 통일
-# =========================
-
-month['년도'] = month['년도'].astype(int)
-month['월'] = month['월'].astype(int)
-
-year['년도'] = year['년도'].astype(int)
-
-age['년도'] = age['년도'].astype(int)
-
-job['년도'] = job['년도'].astype(int)
-
-region['년도'] = region['년도'].astype(int)
-
-
-# =========================
-# Pivot 처리
-# =========================
-
-# 연령 데이터
-age_pivot = age.pivot_table(
-    index='년도',
-    columns='연령코드',
-    values='헌혈건수',
-    aggfunc='sum'
-).reset_index()
-
-age_pivot = age_pivot.add_prefix('age_')
-
-age_pivot.rename(columns={
-    'age_년도': '년도'
-}, inplace=True)
-
-
-# 직업 데이터
-job_pivot = job.pivot_table(
-    index='년도',
-    columns='직업명',
-    values='헌혈건수',
-    aggfunc='sum'
-).reset_index()
-
-job_pivot = job_pivot.add_prefix('job_')
-
-job_pivot.rename(columns={
-    'job_년도': '년도'
-}, inplace=True)
-
-
-# 지역 데이터
-region_pivot = region.pivot_table(
-    index='년도',
-    columns='시도명',
-    values='헌혈건수',
-    aggfunc='sum'
-).reset_index()
-
-region_pivot = region_pivot.add_prefix('region_')
-
-region_pivot.rename(columns={
-    'region_년도': '년도'
-}, inplace=True)
-
-
-# 컬럼명 정리
-age_pivot.columns.name = None
-job_pivot.columns.name = None
-region_pivot.columns.name = None
-
-
-# =========================
-# Merge
-# =========================
-
-merged = pd.merge(
-    month,
-    year,
-    on='년도',
-    how='left'
-)
-
-merged = pd.merge(
-    merged,
-    age_pivot,
-    on='년도',
-    how='left'
-)
-
-merged = pd.merge(
-    merged,
-    job_pivot,
-    on='년도',
-    how='left'
-)
-
-merged = pd.merge(
-    merged,
-    region_pivot,
-    on='년도',
-    how='left'
-)
-
-
-# =========================
-# 중복 컬럼 제거
-# =========================
-
-if '연도' in merged.columns:
-
-    merged.drop(
-        columns=['연도'],
-        inplace=True
-    )
-
-
-# =========================
-# 결측치 처리
-# =========================
-
-merged.fillna(0, inplace=True)
-
-
-# =========================
-# 시계열 정렬
-# =========================
-
-merged = merged.sort_values(
-    ['년도', '월']
-)
-
-
-# =========================
-# 숫자형 변환
-# =========================
-
-for col in merged.columns:
-
-    try:
-        merged[col] = pd.to_numeric(
-            merged[col]
-        )
-
-    except:
-        pass
-
-
-# float → int 변환
-for col in merged.columns:
-
-    if merged[col].dtype == 'float64':
-
-        if (merged[col].dropna() % 1 == 0).all():
-
-            merged[col] = merged[col].astype('Int64')
-
-
-# =========================
-# 머신러닝용 데이터 분리
-# =========================
-
-# target
-y = merged['총헌혈건수']
-
-# feature
-X = merged.drop(
-    columns=['총헌혈건수']
-)
-
-
-# =========================
-# 확인
-# =========================
-
-print(merged.head())
-
-print(merged.info())
-
-print(merged.isnull().sum())
-
-print(X.shape)
-print(y.shape)
-
-
-# =========================
-# 저장
-# =========================
-
-merged.to_csv(
-    'merged_BD.csv',
-    index=False,
-    encoding='utf-8-sig'
-)
-
-print('저장 완료')
+3.2 데이터 통합 및 전처리 (Merge & Preprocessing)모델링을 수행하기 전, 개별 범주별로 분리된 데이터를 년도와 월을 기준으로 통합하고, 학습에 최적화된 형태로 가공하는 과정을 거칩니다.
+1. 데이터 로드 및 통일 :
+   다양한 소스에서 불러온 데이터의 컬럼명과 데이터 타입을 표준화하여 병합의 기준을 맞춥니다.표준화 작업:컬럼 공백 제거(strip)연도, 기준연도 → 년도로 명칭 통일연도 및 월 데이터를 int 타입으로 변환
+3. Pivot Table 변환 및 특성 엔지니어링:
+   범주형 데이터(연령, 직업, 지역)를 모델 학습이 가능한 피처로 만들기 위해 pivot_table을 사용하여 행(년도) 기반의 열 형태로 재구성합니다.
+   피벗 수행: 각 카테고리별로 헌혈건수를 합산하여 년도 기준으로 집계접두사 추가: 변수 간 구분을 위해 각 컬럼에 age_, job_, region_ 접두사 부여
+   데이터 병합 (Merge)모든 데이터를 년도를 기준으로 left join을 수행하여 하나의 통합 데이터셋(merged)을 구축합니다.
+   
+5. Python# 통합 예시
+merged = pd.merge(month, year, on='년도', how='left')
+merged = pd.merge(merged, age_pivot, on='년도', how='left')
+
+## ... (이후 job, region 순차 병합)
+4. 데이터 정제 및 최종 변환학습 성능을 최적화하기 위해 데이터 결측치 처리 및 정렬을 수행합니다.결측치 처리: 병합 과정에서 발생한 결측치는 0으로 치환정렬: 시계열 데이터의 시간적 흐름을 보존하기 위해 ['년도', '월'] 순으로 정렬형식 최적화: 숫자형 데이터를 Int64 타입으로 변환하여 메모리 효율성 확보5. 학습 데이터(X, y) 분리최종적으로 예측할 타겟 변수(총헌혈건수)와 피처(Feature)를 분리하여 모델링 준비를 마칩니다.단계항목내용Target (y)총헌혈건수예측하고자 하는 종속 변수Features (X)y를 제외한 전체 컬럼모델 입력값으로 사용될 독립 변수들
 
 ---
 
@@ -394,37 +148,37 @@ print('저장 완료')
 * **대상 모델:** Linear Regression,RandomForest Regressor, Lasso(StandardScaler 기반 특성 스케일링 수행)
 * **하이퍼파라미터 튜닝:** `alpha` 규제 강도 탐색을 통해 다중공선성 및 시계열 과적합(Overfitting) 제어.
 
-# 문제생성
+## 문제생성
 시계열 데이터 분리
-# 정렬
+## 정렬
 merged = merged.sort_values(
     ['년도', '월']
 )
 
 
-# targets
+## targets
 y = merged['총헌혈건수']
 
-# feature
+## feature
 X = merged.drop(columns=['총헌혈건수'])
 
 
-# 시계열 데이터분리
-#전체 데이터의 80% 위치 계산
+## 시계열 데이터분리
+## 전체 데이터의 80% 위치 계산
 split_idx = int(len(merged) * 0.8)
 
-# 시계열 데이터의 시간 순서를 유지하기 위해
+## 시계열 데이터의 시간 순서를 유지하기 위해
 #처음부터 80%까지를 학습용 feature 데이터로 사용
 X_train = X.iloc[:split_idx]
 
-# 20%를 테스트용 feature 데이터로 사용
+#e 20%를 테스트용 feature 데이터로 사용
 X_test = X.iloc[split_idx:]
 
 y_train = y.iloc[:split_idx]
 y_test = y.iloc[split_idx:]
 
 
-# linear 모델 평가 결과
+## Linear Regression 모델 평가 결과
 
 > MAE : 15032.5129896122
 
@@ -436,11 +190,11 @@ y_test = y.iloc[split_idx:]
 
 > Train_score : 1.0
 
-# 데이터 특성이 비교적 선형적이므로 LinearRegression이 가장 높은 성능을 보임
-# !-- Train Score와 Test Score 모두 높은 성능을 보였지만 적은데이터양으로 과적합 -> lasso
-# 데이터기반 예측 가능성 확인
+## 데이터 특성이 비교적 선형적이므로 LinearRegression이 가장 높은 성능을 보임
+## !-- Train Score와 Test Score 모두 높은 성능을 보였지만 적은데이터양으로 과적합 -> lasso
+## 데이터기반 예측 가능성 확인
 
-# RandomForest 모델평가
+## RandomForest 모델평가
 > MAE_RF : 66398.1150000001
 
 >MSE_RF : 4676305750.797963
@@ -449,21 +203,21 @@ y_test = y.iloc[split_idx:]
 
 >R2_RF : 0.5315217708682611
 
-# 단순한 선형 데이터를 복잡하게 학습
-# 낮은 R2값을 보임
+## 단순한 선형 데이터를 복잡하게 학습
+## 낮은 R2값을 보임
 
 
-# ==========================================
-# 1. 검증을 통해 확인된 최적의 개별 모델 정의
-# ==========================================
+## ==========================================
+## 1. 검증을 통해 확인된 최적의 개별 모델 정의
+## ==========================================
 
 # ① 그리드 서치로 찾은 최적의 릿지 (alpha=0.001)
 best_ridge = Ridge(alpha=0.001, random_state=42)
 
-# ② 단독 모델로 성능이 증명된 최적의 라쏘 (alpha=10)
+## ② 단독 모델로 성능이 증명된 최적의 라쏘 (alpha=10)
 best_lasso = Lasso(alpha=10, random_state=42)
 
-# ③ 과적합을 방지하고 잔차를 잡아줄 XGBoost
+## ③ 과적합을 방지하고 잔차를 잡아줄 XGBoost
 best_xgb = XGBRegressor(
     n_estimators=100, 
     learning_rate=0.05, 
@@ -472,11 +226,11 @@ best_xgb = XGBRegressor(
     n_jobs=-1
 )
 
-# ==========================================
-# 2. 3개 모델을 융합한 VotingRegressor 정의
-# ==========================================
-# 라쏘의 성능이 워낙 압도적이므로, 라쏘와 기둥이 되는 릿지에 무게감을 더 실어주거나
-# 기본 균등 분배([0.33, 0.33, 0.33])로 시작할 수 있습니다. 여기서는 균등하게 묶었습니다.
+## ==========================================
+## 2. 3개 모델을 융합한 VotingRegressor 정의
+## ==========================================
+## 라쏘의 성능이 워낙 압도적이므로, 라쏘와 기둥이 되는 릿지에 무게감을 더 실어주거나
+## 기본 균등 분배([0.33, 0.33, 0.33])로 시작할 수 있습니다. 여기서는 균등하게 묶었습니다.
 final_voting = VotingRegressor(
     estimators=[
         ('ridge', best_ridge),
@@ -486,16 +240,16 @@ final_voting = VotingRegressor(
     n_jobs=-1
 )
 
-# ==========================================
-# 3. 최종 모델 학습 및 평가 (스케일링 데이터 반영)
-# ==========================================
+## ==========================================
+## 3. 최종 모델 학습 및 평가 (스케일링 데이터 반영)
+## ==========================================
 print("최적 파라미터 조합 기반 최종 Voting 모델 학습 시작...")
 final_voting.fit(X_train_scaled, y_train)
 
-# 예측
+## 예측
 y_final_pred = final_voting.predict(X_test_scaled)
 
-# 성능 평가 지표 계산
+## 성능 평가 지표 계산
 final_r2 = r2_score(y_test, y_final_pred)
 final_rmse = np.sqrt(mean_squared_error(y_test, y_final_pred))
 final_mae = mean_absolute_error(y_test, y_final_pred)
@@ -506,14 +260,14 @@ print(f"최종 Voting RMSE (평균 제곱근 오차): {final_rmse:.2f}")
 print(f"최종 Voting MAE (평균 절대 오차): {final_mae:.2f}")
 
 # ========================================================
-# 1. 최적의 alpha로 Ridge 모델 다시 학습
+1. 최적의 alpha로 Ridge 모델 다시 학습
 best_ridge.fit(X_train_scaled, y_train)
 
-# 2. Train 데이터와 Test 데이터 각각 예측값 생성
+2. Train 데이터와 Test 데이터 각각 예측값 생성
 y_train_pred = best_ridge.predict(X_train_scaled)
 y_test_pred = best_ridge.predict(X_test_scaled)
 
-# 3. 양쪽 점수 비교 출력
+3. 양쪽 점수 비교 출력
 train_r2 = r2_score(y_train, y_train_pred)
 test_r2 = r2_score(y_test, y_test_pred)
 
