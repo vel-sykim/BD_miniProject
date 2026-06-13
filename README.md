@@ -21,15 +21,14 @@
 
 ## 🌳 프로젝트 구조 시각화
 
-'''
-├── data/                  # 원천 데이터 및 전처리 데이터
+
+'''├── data/                  # 원천 데이터 및 전처리 데이터
 ├── notebooks/             # jupyter notebook 파일들
 │   ├── 01_Data_preprocessing_BD.ipynb
 │   ├── 02_EDA_BD.ipynb
 │   └── 03_Modeling_BD.ipynb
 ├── images/                # 시각화 그래프 이미지 저장
-└── README.md
-'''
+└── README.md'''
 
 📅 프로젝트 기간 & 참여 인원
 진행 기간: 2026년 5월
