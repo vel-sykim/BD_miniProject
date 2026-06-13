@@ -28,7 +28,7 @@
 │   ├── 02_EDA_BD.ipynb
 │   └── 03_Modeling_BD.ipynb
 ├── images/                # 시각화 그래프 이미지 저장
-└── README.md
+└── README.md'''
 
 
 ## 📅 프로젝트 기간 & 참여 인원
@@ -122,9 +122,9 @@ merged = pd.merge(merged, age_pivot, on='년도', how='left')
 ## 4. 📊 탐색적 데이터 분석 보고서 (EDA)
 [![Notion](https://app.notion.com/p/EDA_BD-3591043acf1280e28dd1cffdc03389ce?source=copy_link)
 연령별,직업별,지역별,헌혈방법,혈액형별 등 8개의 테이블 탐색적 데이터분석을 진행하여 인사이트도출
-![alt text](image-2.png)
-![alt text](image.png)
-![alt text](image-1.png)
+![이미지1](./image-1.png)
+![이미지2](./image-2.png)
+![이미지3](./image.png)
 
 # 주요 피처별 분석 결과
 연령별 특성: 데이터 분석 결과, 20대의 헌혈 참여 건수가 가장 높게 나타나 해당 연령층이 주요 헌혈 주도 그룹임을 확인했습니다.
