@@ -51,7 +51,7 @@ Machine Learning: Scikit-learn (LinearRegression, Ridge, Lasso, StandardScaler, 
 
 
 ## 1. 📌 프로젝트 기획안 & 제안서
-[![Notion](https://app.notion.com/p/AI-34d1043acf1280938479e01a40e712cf?source=copy_link)
+[🔗[Notion](https://app.notion.com/p/AI-34d1043acf1280938479e01a40e712cf?source=copy_link)
 (https://app.notion.com/p/35b1043acf12801d9fe2f434b4c2ea19?source=copy_link)]
 * **배경:** 전체 헌혈건수의 증감만읠 확인하는것을 넘어 연령,직업별로 다차원적인 통계 데이터를 종합적으로 정제하고 분석하여 혈액 수급 불균형을 완화하고 최적의 마케팅 시점을 예측하고자함 .
 * **목표:** 다차원 인구학적 통계 분석을 기반으로 안정적인 혈액 보유량 유지를 위한 선제적 대응 및 다음년도 헌혈 건수 예측 모델 구축.
@@ -59,7 +59,7 @@ Machine Learning: Scikit-learn (LinearRegression, Ridge, Lasso, StandardScaler, 
 ---
 
 ## 2. 🌐 데이터 수집 & 명세 (Data Collection & Specification)
-[![Notion](https://app.notion.com/p/35c1043acf1280f9ab6fcfa6cf096538?source=copy_link)))
+[🔗[Notion](https://app.notion.com/p/35c1043acf1280f9ab6fcfa6cf096538?source=copy_link)))
 * **수집 출처:** 공공데이터포털 및 통계청 KOSIS Open API
 * **수집 데이터:** 연도별·월별 기초 실적 데이터 및 세부 8개 영역(연령별, 직업별, 지역별, 혈액보유량 등)의 다차원 데이터셋 구축.
 * **데이터 명세:** 각 피처(Feature)의 데이터 타입, 의미, 수집 주기 등을 표준화한 명세서 작성 완료.
@@ -67,7 +67,7 @@ Machine Learning: Scikit-learn (LinearRegression, Ridge, Lasso, StandardScaler, 
 ---
 
 ## 3. 🧼 데이터 전처리 보고서 (Data Preprocessing)
-[![Notion](https://app.notion.com/p/3651043acf12801db329e69770dcb091?source=copy_link)
+[🔗[Notion](https://app.notion.com/p/3651043acf12801db329e69770dcb091?source=copy_link)
 * 분산되어 있던 데이터프레임들을 한글 컬럼명 표준화 및 `utf-8-sig` 인코딩 최적화 단계를 거쳐 정리했습니다.
 * 8개 영역의 세부 지표를 전처리 파이프라인을 통해 `전처리2/` 폴더 내 개별 파일로 분할 저장 후, 머신러닝 학습이 가능하도록 `년도`와 `월` 기준 기존 테이블 pivot table 처리 후 통합 데이터프레임으로 `Merge` 결합 처리를 완수했습니다.
 
@@ -127,7 +127,7 @@ merged = pd.merge(merged, age_pivot, on='년도', how='left')
 ---
 
 ## 4. 📊 탐색적 데이터 분석 보고서 (EDA)
-[![Notion](https://app.notion.com/p/EDA_BD-3591043acf1280e28dd1cffdc03389ce?source=copy_link)
+[🔗[Notion](https://app.notion.com/p/EDA_BD-3591043acf1280e28dd1cffdc03389ce?source=copy_link)
 연령별,직업별,지역별,헌혈방법,혈액형별 등 8개의 테이블 탐색적 데이터분석을 진행하여 인사이트도출
 ![이미지1](./image-1.png)
 ![이미지2](./image-2.png)
@@ -143,7 +143,7 @@ merged = pd.merge(merged, age_pivot, on='년도', how='left')
 ---
 
 ## 5. 🤖 머신러닝 모델링 & 발표 PPT (Modeling & Presentation)
-[![Google Drive](https://app.notion.com/p/_BD-35a1043acf1280f8894bf95e40c008d5?source=copy_link)
+[🔗[Google Drive](https://app.notion.com/p/_BD-35a1043acf1280f8894bf95e40c008d5?source=copy_link)
 
 ### 5.1 모델 탐색 및 실험
 * **대상 모델:** Linear Regression,RandomForest Regressor, Lasso(StandardScaler 기반 특성 스케일링 수행)
@@ -209,7 +209,7 @@ y_test = y.iloc[split_idx:]
 
 
 ## ==========================================
-## 1. 검증을 통해 확인된 최적의 개별 모델 정의
+## 1. 최적의 값으로 XGBoost
 ## ==========================================
 
 # ① 그리드 서치로 찾은 최적의 릿지 (alpha=0.001)
@@ -272,12 +272,19 @@ y_test_pred = best_ridge.predict(X_test_scaled)
 train_r2 = r2_score(y_train, y_train_pred)
 test_r2 = r2_score(y_test, y_test_pred)
 
-# ✅결과값
+
+# ==========================================================
+# 4. 결과값
+# ==========================================================
 ===== 🔍 Ridge 모델 최종 점수 점검 =====
 Train R² Score (훈련 점수) : 1.0000
 Test R² Score  (테스트 점수): 0.9893
 
-### 5.2 최종 모델 평가 결과
+
+# ==========================================================
+# 5 최종 모델 평가 결과
+# ==========================================================
+
 📊 모델링 및 학습 결과 보고
 
 1. 모델 선정 및 튜닝 전략
@@ -294,7 +301,7 @@ Test R² Score  (테스트 점수): 0.9893
 적용 범위 확대: 현재 구축된 파이프라인을 활용하여 타 지표 예측으로의 확장을 고려하고 있습니다(상세 지표 모델링 파일 수록).
 
 ---
-
+# ==========================================================
 ## 6. 📝 회고 (Retrospective)
 
 📝 회고 (Retrospective)
