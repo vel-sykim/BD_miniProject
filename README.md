@@ -39,7 +39,7 @@ Language: Python 3.14+
 
 Data Engineering & EDA: Pandas, NumPy, Requests, JSON, Matplotlib, Seaborn
 
-Machine Learning: Scikit-learn (LinearRegression, Ridge, Lasso, StandardScaler, XGBRegressor)
+Machine Learning: Scikit-learn (LinearRegression, Ridge, Lasso, StandardScaler, XGBRegressor,votingRegressor)
 ---
 
 ## 1. 📌 프로젝트 기획안 & 제안서
@@ -127,9 +127,7 @@ merged = pd.merge(merged, age_pivot, on='년도', how='left')
 # 주요 피처별 분석 결과
 연령별 특성: 데이터 분석 결과, 20대의 헌혈 참여 건수가 가장 높게 나타나 해당 연령층이 주요 헌혈 주도 그룹임을 확인했습니다.
 
-헌혈 트렌드 분석:
-
-전체적인 하락세: 인구 대비 전체 헌혈 건수는 점진적인 감소 추세를 보이고 있음을 확인했습니다.
+헌혈 트렌드 분석 : 전체적인 하락세 인구 대비 전체 헌혈 건수는 점진적인 감소 추세를 보이고 있음을 확인했습니다.
 
 충성도 분석: 반면, 1인당 평균 헌혈 건수는 상승하고 있습니다. 이는 신규 헌혈자의 유입보다는 기존 헌혈자들의 지속적인 참여(충성도)가 높아지고 있음을 시사합니다.
 
