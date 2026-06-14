@@ -129,10 +129,11 @@ merged = pd.merge(merged, age_pivot, on='년도', how='left')
 ## 4. 📊 탐색적 데이터 분석 보고서 (EDA)
 [🔗[Notion](https://app.notion.com/p/EDA_BD-3591043acf1280e28dd1cffdc03389ce?source=copy_link)
 연령별,직업별,지역별,헌혈방법,혈액형별 등 8개의 테이블 탐색적 데이터분석을 진행하여 인사이트도출
-![이미지1](./image-1.png)
-![이미지2](./image-2.png)
-![이미지3](./image.png)
 <img width="723" height="526" alt="image-3" src="https://github.com/user-attachments/assets/1fca5fbc-5926-4502-bfc4-34213b0d88fe" />
+![이미지2](./image-2.png)
+![이미지1](./image-1.png)
+![이미지3](./image.png)
+
 
 # 주요 피처별 분석 결과
 연령별 특성: 데이터 분석 결과, 20대의 헌혈 참여 건수가 가장 높게 나타나 해당 연령층이 주요 헌혈 주도 그룹임을 확인했습니다.
