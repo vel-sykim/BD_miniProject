@@ -3,7 +3,9 @@
 
 본 프로젝트는 공공데이터포털(KOSIS OpenAPI 및 통계 자료)을 활용하여 지난 20개년(2005년~2024년) 동안의 대한민국 헌혈 데이터(연도별·월별·연령별·직업별·지역별·혈액형별·혈액보유량 등)를 종합적으로 수집·정제하고, 탐색적 데이터 분석(EDA)을 통해 핵심 인사이트를 도출한 뒤, 시계열적 특성을 반영한 선형회귀 및 규제 모델(Ridge, Lasso)을 통해 미래 헌혈 건수를 예측하는 프로젝트입니다.
 
+
 ---
+
 
 ## 📂 프로젝트 핵심 문서 바로가기 (Project Documents)
 > 💡 각 아이콘 또는 링크를 클릭하면 해당 문서(노션/구글 드라이브 등)로 바로 이동합니다.
@@ -16,7 +18,9 @@
 | **탐색적 분석** | 📊 탐색적 데이터 분석 보고서 (EDA) | [👉 EDA보고서 보기](https://app.notion.com/p/EDA_BD-3591043acf1280e28dd1cffdc03389ce?source=copy_link) |
 | **PPT** | 🖨️ 프로젝트 최종 발표 PPT (PDF) | [👉 발표 PPT 보기](https://drive.google.com/file/d/1fJCJ__jedu41jm7nGg6LAQrErPXZKxGg/view?usp=drive_link) |
 
+
 ---
+
 
 ## 🌳 프로젝트 구조 시각화
 ```text
@@ -29,10 +33,12 @@
 └── README.md
 ```
 
+
 # 📅 프로젝트 기간 & 참여 인원
 진행 기간: 2026년 5월
 
 참여 인원: 개인 프로젝트
+
 
 # 🛠️ 사용 기술 및 개발 환경 (Tech Stack)
 Language: Python 3.14+
@@ -40,7 +46,9 @@ Language: Python 3.14+
 Data Engineering & EDA: Pandas, NumPy, Requests, JSON, Matplotlib, Seaborn
 
 Machine Learning: Scikit-learn (LinearRegression, Ridge, Lasso, StandardScaler, XGBRegressor,votingRegressor)
+
 ---
+
 
 ## 1. 📌 프로젝트 기획안 & 제안서
 [![Notion](https://app.notion.com/p/AI-34d1043acf1280938479e01a40e712cf?source=copy_link)
@@ -102,10 +110,11 @@ def preprocess_location(location_df):
 
 3.2 데이터 통합 및 전처리 (Merge & Preprocessing)모델링을 수행하기 전, 개별 범주별로 분리된 데이터를 년도와 월을 기준으로 통합하고, 학습에 최적화된 형태로 가공하는 과정을 거칩니다.
 1. 데이터 로드 및 통일 :
-   다양한 소스에서 불러온 데이터의 컬럼명과 데이터 타입을 표준화하여 병합의 기준을 맞춥니다.표준화 작업:컬럼 공백 제거(strip)연도, 기준연도 → 년도로 명칭 통일연도 및 월 데이터를 int 타입으로 변환
+   다양한 소스에서 불러온 데이터의 컬럼명과 데이터 타입을 표준화하여 병합의 기준을 맞춥니다.
+2. 표준화 작업:컬럼 공백 제거(strip)연도, 기준연도 → 년도로 명칭 통일연도 및 월 데이터를 int 타입으로 변환
 3. Pivot Table 변환 및 특성 엔지니어링:
    범주형 데이터(연령, 직업, 지역)를 모델 학습이 가능한 피처로 만들기 위해 pivot_table을 사용하여 행(년도) 기반의 열 형태로 재구성합니다.
-   피벗 수행: 각 카테고리별로 헌혈건수를 합산하여 년도 기준으로 집계접두사 추가: 변수 간 구분을 위해 각 컬럼에 age_, job_, region_ 접두사 부여
+4. 피벗 수행: 각 카테고리별로 헌혈건수를 합산하여 년도 기준으로 집계접두사 추가: 변수 간 구분을 위해 각 컬럼에 age_, job_, region_ 접두사 부여
    데이터 병합 (Merge)모든 데이터를 년도를 기준으로 left join을 수행하여 하나의 통합 데이터셋(merged)을 구축합니다.
    
 5. Python# 통합 예시
