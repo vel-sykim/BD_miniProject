@@ -191,11 +191,13 @@ y_test = y.iloc[split_idx:]
 
 > Train_score : 1.0
 
-## 데이터 특성이 비교적 선형적이므로 LinearRegression이 가장 높은 성능을 보임
-## !-- Train Score와 Test Score 모두 높은 성능을 보였지만 적은데이터양으로 과적합 -> lasso
-## 데이터기반 예측 가능성 확인
+### 데이터 특성이 비교적 선형적이므로 LinearRegression이 가장 높은 성능을 보임
+### !-- Train Score와 Test Score 모두 높은 성능을 보였지만 적은데이터양으로 과적합 양상
+### 데이터기반 예측 가능성 확인
 
+## ==========================================
 ## RandomForest 모델평가
+## ==========================================
 > MAE_RF : 66398.1150000001
 
 >MSE_RF : 4676305750.797963
@@ -260,15 +262,16 @@ print(f"최종 Voting R² Score (설명력): {final_r2:.4f}")
 print(f"최종 Voting RMSE (평균 제곱근 오차): {final_rmse:.2f}")
 print(f"최종 Voting MAE (평균 절대 오차): {final_mae:.2f}")
 
-# ========================================================
+## ========================================================
 1. 최적의 alpha로 Ridge 모델 다시 학습
+## ========================================================
 best_ridge.fit(X_train_scaled, y_train)
 
-2. Train 데이터와 Test 데이터 각각 예측값 생성
+3. Train 데이터와 Test 데이터 각각 예측값 생성
 y_train_pred = best_ridge.predict(X_train_scaled)
 y_test_pred = best_ridge.predict(X_test_scaled)
 
-3. 양쪽 점수 비교 출력
+4. 양쪽 점수 비교 출력
 train_r2 = r2_score(y_train, y_train_pred)
 test_r2 = r2_score(y_test, y_test_pred)
 
@@ -303,7 +306,7 @@ Test R² Score  (테스트 점수): 0.9893
 ---
 # ==========================================================
 ## 6. 📝 회고 (Retrospective)
-
+# ==========================================================
 📝 회고 (Retrospective)
 1. 성과 및 배운 점
 파이프라인 구축 역량: OpenAPI를 통한 데이터 수집부터 정제, 다차원 테이블 병합, 머신러닝 학습까지의 End-to-End 파이프라인을 설계하며 데이터 처리의 전체 흐름을 이해했습니다.
