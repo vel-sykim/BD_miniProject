@@ -64,7 +64,7 @@ Machine Learning: Scikit-learn (LinearRegression, Ridge, Lasso, StandardScaler, 
 * 8개 영역의 세부 지표를 전처리 파이프라인을 통해 `전처리2/` 폴더 내 개별 파일로 분할 저장 후, 머신러닝 학습이 가능하도록 `년도`와 `월` 기준 기존 테이블 pivot table 처리 후 통합 데이터프레임으로 `Merge` 결합 처리를 완수했습니다.
 
 
-# 1. 연령별 데이터 전처리
+### 1. 연령별 데이터 전처리
 def preprocess_age(age_df):
     age = age_df[["연령코드", "연령명", "기준연도", "헌혈건수", "단위"]].copy()
     
@@ -81,13 +81,13 @@ def preprocess_age(age_df):
     age["연령대"] = age["연령코드"].map(label_map)
     return age
 
-# 2. 직업 데이터 전처리
+### 2. 직업 데이터 전처리
 def preprocess_job(job_df):
     job = job_df.copy()
     job['건'] = job['건'].replace('-', np.nan).astype(int)
     return job
 
-# 3. 장소 데이터 전처리 및 기관 구분
+### 3. 장소 데이터 전처리 및 기관 구분
 def preprocess_location(location_df):
     loc = location_df[['장소코드', '장소명', '혈액원명', '헌혈건수', '단위']].copy()
     
@@ -112,7 +112,7 @@ def preprocess_location(location_df):
 merged = pd.merge(month, year, on='년도', how='left')
 merged = pd.merge(merged, age_pivot, on='년도', how='left')
 
-## ... (이후 job, region 순차 병합)
+### ... (이후 job, region 순차 병합)
 4. 데이터 정제 및 최종 변환학습 성능을 최적화하기 위해 데이터 결측치 처리 및 정렬을 수행합니다.결측치 처리: 병합 과정에서 발생한 결측치는 0으로 치환정렬: 시계열 데이터의 시간적 흐름을 보존하기 위해 ['년도', '월'] 순으로 정렬형식 최적화: 숫자형 데이터를 Int64 타입으로 변환하여 메모리 효율성 확보5. 학습 데이터(X, y) 분리최종적으로 예측할 타겟 변수(총헌혈건수)와 피처(Feature)를 분리하여 모델링 준비를 마칩니다.단계항목내용Target (y)총헌혈건수예측하고자 하는 종속 변수Features (X)y를 제외한 전체 컬럼모델 입력값으로 사용될 독립 변수들
 
 ---
